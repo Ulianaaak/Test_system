@@ -39,7 +39,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Прохождение теста</title>
-    <link rel="stylesheet" href="/kiu_test/css/style.css">
+    <link rel="stylesheet" href="/kiu_test/css/styles.css">
 </head>
 <body>
 <header>
@@ -50,7 +50,7 @@ $conn->close();
     <div class="user-info">
         <span><?php echo htmlspecialchars($_SESSION['username']); ?> <?php echo htmlspecialchars($_SESSION['group_number']); ?></span>
         <div class="separator"></div>
-        <form action="logout.php" method="post" style="display: inline;">
+        <form action="/kiu_test/index.php" method="post" style="display: inline;">
             <button type="submit"><img src="/kiu_test/icons/ic_exit_to_app.svg" alt="Выйти"></button>
         </form>
     </div>
@@ -73,10 +73,6 @@ $conn->close();
         </section>
     </div>
 </main>
-
-<footer>
-    <hr>
-</footer>
 
 <script>
     document.querySelectorAll('.test-card').forEach(card => {

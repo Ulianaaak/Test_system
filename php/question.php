@@ -71,7 +71,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Тестирование</title>
-    <link rel="stylesheet" href="/kiu_test/css/style.css">
+    <link rel="stylesheet" href="/kiu_test/css/styles.css">
 </head>
 <body>
 <header>
@@ -82,7 +82,7 @@ $conn->close();
     <div class="user-info">
         <span><?php echo htmlspecialchars($_SESSION['username']); ?> <?php echo htmlspecialchars($_SESSION['group_number']); ?></span>
         <div class="separator"></div>
-        <form action="index.php" method="post" style="display: inline;">
+        <form action="/kiu_test/index.php" method="post" style="display: inline;">
             <button type="submit"><img src="/kiu_test/icons/ic_exit_to_app.svg" alt="Выйти"></button>
         </form>
     </div>
@@ -93,7 +93,10 @@ $conn->close();
         <p>Осталось: <span id="countdown">00:00</span></p>
         <div class="pagination-indicators">
             <?php foreach ($questions as $index => $question): ?>
-                <div class="indicator <?php echo $index === $currentQuestionIndex ? 'active' : ''; ?>"></div>
+                <div
+                        class="indicator <?php echo $index === $currentQuestionIndex ? 'active' : ''; ?>"
+                        data-question-index="<?php echo $index; ?>"
+                ></div>
             <?php endforeach; ?>
         </div>
     </section>
@@ -122,11 +125,11 @@ $conn->close();
     <div class="pagination">
         <a href="?test_id=<?php echo $test_id; ?>&question=<?php echo $currentQuestionIndex - 1; ?>" class="prev-btn">&larr; Предыдущая страница</a>
         <?php if ($currentQuestionIndex < count($questions) - 1): ?>
-            <a href="?test_id=<?php echo $test_id; ?>&question=<?php echo $currentQuestionIndex + 1; ?>" class="next-btn">Следующая страница &rarr;</a>
+            <a href="?test_id=<?php echo $test_id; ?>&question=<?php echo $currentQuestionIndex + 1; ?>" class="next-btn" style="justify-content: flex-end;">Следующая страница &rarr;</a>
         <?php else: ?>
             <form method="post" action="finish.php" style="display: inline;">
                 <input type="hidden" name="test_id" value="<?php echo $test_id; ?>">
-                <button type="submit" id="finish-btn">Завершить &rarr;</button>
+                <button type="submit" id="finish-btn" style="justify-content: flex-end;">Завершить &rarr;</button>
             </form>
         <?php endif; ?>
     </div>
@@ -136,5 +139,19 @@ $conn->close();
     <hr>
     <button id="back-btn">&larr; Назад</button>
 </footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const indicators = document.querySelectorAll('.indicator');
+        const testId = <?php echo $test_id; ?>;
+
+        indicators.forEach(indicator => {
+            indicator.addEventListener('click', () => {
+                const questionIndex = indicator.getAttribute('data-question-index');
+                window.location.href = `?test_id=${testId}&question=${questionIndex}`;
+            });
+        });
+    });
+</script>
 </body>
 </html>

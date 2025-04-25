@@ -40,7 +40,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Прохождение теста</title>
-    <link rel="stylesheet" href="/kiu_test/css/style.css">
+    <link rel="stylesheet" href="/kiu_test/css/styles.css">
 </head>
 <body>
 <header>
@@ -51,7 +51,7 @@ $conn->close();
     <div class="user-info">
         <span><?php echo htmlspecialchars($_SESSION['username']); ?> <?php echo htmlspecialchars($_SESSION['group_number']); ?></span>
         <div class="separator"></div>
-        <form action="logout.php" method="post" style="display: inline;">
+        <form action="/kiu_test/index.php" method="post" style="display: inline;">
             <button type="submit"><img src="/kiu_test/icons/ic_exit_to_app.svg" alt="Выйти"></button>
         </form>
     </div>
@@ -63,13 +63,10 @@ $conn->close();
             <h2><?php echo htmlspecialchars($test['test_name']); ?></h2>
             <p>Время прохождения: <?php echo htmlspecialchars($test['duration']); ?></p>
             <p>Вы готовы пройти тест?</p>
-            <a href="question.php?test_id=<?php echo $test_id; ?>" class="start-button">Перейти</a>
+            <a href="question.php?test_id=<?php echo $test_id; ?>" class="start-button">Начать</a>
         </section>
     </div>
 </main>
 
-<footer>
-    <hr>
-</footer>
 </body>
 </html>
